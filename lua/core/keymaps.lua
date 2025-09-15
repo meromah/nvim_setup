@@ -11,4 +11,10 @@ vim.opt.shiftround = true
 vim.opt.expandtab = true
 vim.opt.number = true
 
-vim.opt.guifont = 'BitstreamVeraSandMono_NF:h14'
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+
+vim.opt.relativenumber = true
+
+
+vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
