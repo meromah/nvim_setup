@@ -17,10 +17,11 @@ return require('packer').startup(function(use)
   use 'nvim-tree/nvim-web-devicons'
   use 'nvim-tree/nvim-tree.lua'
   use 'nvim-lualine/lualine.nvim'
-  use 'nvim-treesitter/nvim-treesitter' 
+  use 'tpope/vim-fugitive'
+  use 'nvim-treesitter/nvim-treesitter'
   use {'nvim-telescope/telescope.nvim',
     requires = {
-        {'nvim-lua/plenary.nvim',}
+        {'nvim-lua/plenary.nvim'},
     }
   }
 
