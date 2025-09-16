@@ -14,7 +14,6 @@ vim.opt.number = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
-vim.opt.relativenumber = true
 
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
