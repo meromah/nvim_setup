@@ -14,6 +14,8 @@ vim.opt.number = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
@@ -43,9 +45,18 @@ vim.keymap.set('n', '<Space>t', function()
     vim.cmd('term')
     vim.cmd('wincmd J')
 
-    vim.api.nvim_win_set_height(window, 12)
+    vim.api.nvim_win_set_height(window, 25)
     vim.cmd('startinsert')
 end, { noremap = true, silent = true })
 
 
 vim.keymap.set('t', 'jk', [[<C-\><C-n>]], { noremap = true, silent = true })
+vim.keymap.set('t', 'JK', [[<C-\><C-n>]], { noremap = true, silent = true })
+
+
+-- Resize splits with arrow keys
+vim.keymap.set('n', '<C-Right>', ':vertical resize +5<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Left>',  ':vertical resize -5<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Up>',    ':resize +2<CR>',           { noremap = true, silent = true })
+vim.keymap.set('n', '<C-Down>',  ':resize -2<CR>',           { noremap = true, silent = true })
+
