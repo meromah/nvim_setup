@@ -35,5 +35,8 @@ require("lazy").setup({
       require("Comment").setup()
     end,
   },
+  {
+    "folke/tokyonight.nvim", -- theme
+  },
 })
 
