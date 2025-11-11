@@ -38,5 +38,19 @@ require("lazy").setup({
   {
     "folke/tokyonight.nvim", -- theme
   },
+  {
+    "swaits/universal-clipboard.nvim",
+    opts = {
+      verbose = false, -- optional: set true to log detection details
+      providers = {
+        name = "xclip",
+        detect = "xclip", -- Just a string, means "check if `xclip` is executable"
+        commands = {
+        copy = "xclip -selection clipboard",
+        paste = "xclip -selection clipboard -o",
+        },
+      },
+    },
+  }
 })
 
