@@ -22,7 +22,20 @@ require("lazy").setup({
   { "nvim-tree/nvim-tree.lua" },
   { "nvim-lualine/lualine.nvim" },
   { "tpope/vim-fugitive" },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        highlight = {
+          enable = true,
+        },
+        indent = {
+          enable = true,
+        },
+      })
+    end,
+  },
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -55,7 +68,7 @@ require("lazy").setup({
   {
     "swaits/universal-clipboard.nvim",
     opts = {
-      verbose = true, -- optional: set true to log detection details
+      verbose = false, -- optional: set true to log detection details
     },
   },
   {
@@ -69,6 +82,11 @@ require("lazy").setup({
       silent = false,             -- Disable plugin messages (Config loaded/denied)
       lookup_parents = false,     -- Lookup config files in parent directories
     }
-  }
+  },
+  { -- vertical lines that indicate how deep in indentation the cursor is
+    "nvimdev/indentmini.nvim",
+    config = function()
+      require('indentmini').setup()
+    end,
+  },
 })
-

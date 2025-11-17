@@ -12,7 +12,7 @@ vim.opt.expandtab = true
 vim.opt.number = true
 
 vim.opt.autoindent = true
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
