@@ -26,6 +26,20 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require('telescope').setup({
+        defaults = {
+          layout_strategy = 'horizontal',
+          layout_config = {
+            height=0.95,
+            preview_width = 0.50,
+            width = function(_, max_columns)
+              return math.floor(max_columns * 1);
+            end,
+          },
+        }
+      })
+    end,
   },
   { "dense-analysis/ale" },
   { "neoclide/coc.nvim", branch = "release" },
