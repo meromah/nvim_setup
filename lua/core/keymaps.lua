@@ -18,6 +18,8 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.scrolloff=5
+vim.opt.spell = true
+vim.opt.spelllang = {'en_us', 'en_gb'}
 
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
