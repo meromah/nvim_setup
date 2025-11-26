@@ -10,6 +10,7 @@ vim.opt.shiftwidth = 4
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 vim.opt.number = true
+vim.opt.relativenumber = true
 
 vim.opt.autoindent = true
 -- vim.opt.smartindent = true
@@ -25,6 +26,7 @@ vim.opt.spelllang = {'en_us', 'en_gb'}
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 
 
+-- disable numbers and relativenumber when a new terminal is toggle or open with :term on nvim
 vim.api.nvim_create_autocmd('TermOpen', {
     group = vim.api.nvim_create_augroup('custom-term-open', { clear = true}),
     callback = function()
