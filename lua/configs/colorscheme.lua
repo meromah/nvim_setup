@@ -5,3 +5,5 @@
     vim.notify("colorscheme " .. colorscheme .. " not found!")
     return
   end
+-- Override comment color
+vim.api.nvim_set_hl(0, "Comment", { fg = "#a7b0d6", italic = true })

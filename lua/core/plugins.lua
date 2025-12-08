@@ -23,6 +23,7 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim" },
   { "tpope/vim-fugitive" },
   {
+    -- syntax highlighting 
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
@@ -36,7 +37,9 @@ require("lazy").setup({
       })
     end,
   },
+
   {
+    -- fuzzy finder plugin -> telescope
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
@@ -68,7 +71,7 @@ require("lazy").setup({
   {
     "swaits/universal-clipboard.nvim",
     opts = {
-      verbose = false, -- optional: set true to log detection details
+      verbose = true, -- optional: set true to log detection details
     },
   },
   {
