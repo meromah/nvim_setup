@@ -71,7 +71,7 @@ require("lazy").setup({
   {
     "swaits/universal-clipboard.nvim",
     opts = {
-      verbose = true, -- optional: set true to log detection details
+      verbose = false, -- optional: set true to log detection details
     },
   },
   {
