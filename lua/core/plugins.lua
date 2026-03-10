@@ -57,8 +57,8 @@ require("lazy").setup({
       })
     end,
   },
-  { "dense-analysis/ale" },
-  { "neoclide/coc.nvim", branch = "release" },
+  -- { "dense-analysis/ale" }, -- for linting
+  { "neoclide/coc.nvim", branch = "release" }, -- is a LSP client for linting
   {
     "numToStr/Comment.nvim",
     config = function()
@@ -82,7 +82,7 @@ require("lazy").setup({
 
       autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
       commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalDeny)
-      silent = false,             -- Disable plugin messages (Config loaded/denied)
+      silent = true,             -- Disable plugin messages (Config loaded/denied)
       lookup_parents = false,     -- Lookup config files in parent directories
     }
   },
@@ -92,4 +92,11 @@ require("lazy").setup({
       require('indentmini').setup()
     end,
   },
+  {
+    'nvim-java/nvim-java',
+    config = function()
+      require('java').setup()
+      vim.lsp.enable('jdtls')
+    end,
+  }
 })
