@@ -17,11 +17,7 @@ vim.cmd [[filetype plugin indent on]]
 
 -- set up plugins
 require("lazy").setup({
-  -- { "ellisonleao/gruvbox.nvim" },
-  -- { "nvim-tree/nvim-web-devicons" },
   { "nvim-tree/nvim-tree.lua" },
-  -- { "nvim-lualine/lualine.nvim" },
-  -- { "tpope/vim-fugitive" },
   {
     -- syntax highlighting 
     "nvim-treesitter/nvim-treesitter",
@@ -65,26 +61,11 @@ require("lazy").setup({
       require("Comment").setup()
     end,
   },
-  -- {
-  --   "folke/tokyonight.nvim", -- theme
-  -- },
   {
     "swaits/universal-clipboard.nvim",
     opts = {
       verbose = false, -- optional: set true to log detection details
     },
-  },
-  {
-    "klen/nvim-config-local",
-    opts = {
-      config_files = {".nvim.lua"},
-      hashfile = vim.fn.stdpath("data") .. "/config-local",
-
-      autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
-      commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalDeny)
-      silent = true,             -- Disable plugin messages (Config loaded/denied)
-      lookup_parents = false,     -- Lookup config files in parent directories
-    }
   },
   {
     'nvim-java/nvim-java',
