@@ -17,11 +17,11 @@ vim.cmd [[filetype plugin indent on]]
 
 -- set up plugins
 require("lazy").setup({
-  { "ellisonleao/gruvbox.nvim" },
-  { "nvim-tree/nvim-web-devicons" },
+  -- { "ellisonleao/gruvbox.nvim" },
+  -- { "nvim-tree/nvim-web-devicons" },
   { "nvim-tree/nvim-tree.lua" },
-  { "nvim-lualine/lualine.nvim" },
-  { "tpope/vim-fugitive" },
+  -- { "nvim-lualine/lualine.nvim" },
+  -- { "tpope/vim-fugitive" },
   {
     -- syntax highlighting 
     "nvim-treesitter/nvim-treesitter",
@@ -65,9 +65,9 @@ require("lazy").setup({
       require("Comment").setup()
     end,
   },
-  {
-    "folke/tokyonight.nvim", -- theme
-  },
+  -- {
+  --   "folke/tokyonight.nvim", -- theme
+  -- },
   {
     "swaits/universal-clipboard.nvim",
     opts = {
@@ -85,12 +85,6 @@ require("lazy").setup({
       silent = true,             -- Disable plugin messages (Config loaded/denied)
       lookup_parents = false,     -- Lookup config files in parent directories
     }
-  },
-  { -- vertical lines that indicate how deep in indentation the cursor is
-    "nvimdev/indentmini.nvim",
-    config = function()
-      require('indentmini').setup()
-    end,
   },
   {
     'nvim-java/nvim-java',
