@@ -70,6 +70,7 @@ require("lazy").setup({
       verbose = false, -- optional: set true to log detection details
     },
   },
+  {"numToStr/Comment.nvim"},
   {
     'nvim-java/nvim-java',
     config = function()
