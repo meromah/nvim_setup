@@ -18,24 +18,24 @@ vim.cmd [[filetype plugin indent on]]
 -- set up plugins
 require("lazy").setup({
   { "nvim-tree/nvim-tree.lua" },
-  {
-    -- syntax highlighting 
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {'c', 'lua', 'vim', 'php', 'java'},
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-          enable = true,
-        },
-        indent = {
-          enable = true,
-        },
-      })
-    end,
-  },
+  -- {
+  --   -- syntax highlighting 
+  --   "nvim-treesitter/nvim-treesitter",
+  --   build = ":TSUpdate",
+  --   config = function()
+  --     require("nvim-treesitter.configs").setup({
+  --       ensure_installed = {'c', 'lua', 'vim', 'php', 'java'},
+  --       sync_install = false,
+  --       auto_install = true,
+  --       highlight = {
+  --         enable = true,
+  --       },
+  --       indent = {
+  --         enable = true,
+  --       },
+  --     })
+  --   end,
+  -- },
 
   {
     -- fuzzy finder plugin -> telescope
