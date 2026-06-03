@@ -57,7 +57,7 @@ require("lazy").setup({
     end,
   },
   -- { "dense-analysis/ale" }, -- for linting
-  { "neoclide/coc.nvim", branch = "release" }, -- is a LSP client for linting
+  -- { "neoclide/coc.nvim", branch = "release" }, -- is a LSP client for linting
   {
     "numToStr/Comment.nvim",
     config = function()
@@ -75,7 +75,6 @@ require("lazy").setup({
     'nvim-java/nvim-java',
     config = function()
       require('java').setup()
-      vim.lsp.enable('jdtls')
     end,
   }
 })
