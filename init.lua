@@ -6,7 +6,7 @@ local options = {
     termguicolors = true
 }
 
-vim.cmd("colorscheme habamax")
+-- vim.cmd("colorscheme tokyonight")
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
