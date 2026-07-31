@@ -160,5 +160,38 @@ require("lazy").setup({
       -- optional but recommended
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     }
+  },
+  {
+    -- Parser installer for the treesitter engine that ships inside Neovim.
+    -- Nvim bundles only c/lua/markdown/query/vim/vimdoc parsers, so php has no
+    -- syntax tree out of the box and treesitter-context has nothing to render.
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    -- The `main` rewrite explicitly does not support lazy-loading.
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      -- Deliberately php-only. `main` installs into stdpath("data")/site, which
+      -- is *prepended* to runtimepath, so installing a language Neovim already
+      -- bundles would shadow the built-in parser. Keep the blast radius here.
+      require("nvim-treesitter").install({ "php" })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+        require("treesitter-context").setup({
+        enable = true,       -- Enable this plugin
+        max_lines = 3,       -- How many lines the window should span
+        trim_scope = 'outer', -- Which context lines to discard if max_lines is exceeded
+        })
+    end
   }
 })
+
+-- NOTE: treesitter highlighting is intentionally NOT enabled (no
+-- vim.treesitter.start()). php files keep their regex highlighting from
+-- runtime/syntax/php.vim, and treesitter-context falls back to it for the
+-- sticky window (see its render.lua highlight_contexts). Only the parser is
+-- installed, purely so a syntax tree exists for the context lookup.
