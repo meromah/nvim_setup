@@ -20,6 +20,16 @@ local function apply_custom_highlights()
     Hint = ok and tokyonight_colors.teal or "#4fd6be",
   }
 
+  -- tokyonight's comment color (#636da6 on moon) sits at only ~3.1:1 against the
+  -- #222436 background. Kept on the palette's blue-grey hue, just lightened, so
+  -- comments stay visibly subordinate to code text (#c8d3f5, ~10.3:1).
+  -- Contrast ladder if this needs dialing:
+  --   #737aa2 3.7:1 | #828bb8 4.6:1 | #949dc4 5.7:1 | #a2abd0 6.8:1 | #b0b9dc 7.9:1
+  local comment_fg = "#a2abd0"
+  local comment_hl = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
+  comment_hl.fg = comment_fg
+  vim.api.nvim_set_hl(0, "Comment", comment_hl)
+
   -- undercurl (curly underline) relies on extended terminal escape codes that
   -- aren't reliably supported through every terminal/multiplexer chain; plain
   -- underline renders consistently everywhere.
