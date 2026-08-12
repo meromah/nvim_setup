@@ -187,6 +187,9 @@ require("lazy").setup({
         trim_scope = 'outer', -- Which context lines to discard if max_lines is exceeded
         })
     end
+  },
+  {
+    "lewis6991/gitsigns.nvim"
   }
 })
 
