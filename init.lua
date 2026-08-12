@@ -30,6 +30,20 @@ local function apply_custom_highlights()
   comment_hl.fg = comment_fg
   vim.api.nvim_set_hl(0, "Comment", comment_hl)
 
+  -- The filename label at the bottom of each split. tokyonight paints unfocused
+  -- windows with StatusLineNC fg #3b4261 on bg #1e2030 -- only ~1.6:1, which is
+  -- effectively unreadable once a split loses focus (:vsplit / telescope <C-v>,
+  -- <C-x>). Lift the unfocused label to a legible level and push the focused one
+  -- brighter, so focus is still obvious from the gap rather than from one of the
+  -- two labels being invisible.
+  -- Contrast ladder against #1e2030 if this needs dialing:
+  --   #565f89 2.6:1 | #737aa2 3.9:1 | #828bb8 4.9:1 | #949dc4 6.0:1 | #c8d3f5 10.8:1
+  for name, fg in pairs({ StatusLine = "#c8d3f5", StatusLineNC = "#828bb8" }) do
+    local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+    hl.fg = fg
+    vim.api.nvim_set_hl(0, name, hl)
+  end
+
   -- undercurl (curly underline) relies on extended terminal escape codes that
   -- aren't reliably supported through every terminal/multiplexer chain; plain
   -- underline renders consistently everywhere.
