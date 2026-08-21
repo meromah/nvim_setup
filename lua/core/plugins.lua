@@ -194,6 +194,10 @@ require("lazy").setup({
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    -- toggle current window to fullscreen and back
+    "szw/vim-maximizer",
   }
 })
 
