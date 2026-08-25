@@ -3,6 +3,18 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<c-p>', builtin.find_files, {})
 vim.keymap.set('n', '<Space><Space>', builtin.oldfiles, {})
 vim.keymap.set('n', '<Space>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<Space>fG', function()
+  local dir = vim.fn.input('Grep in directory: ', vim.fn.getcwd() .. '/', 'dir')
+  if dir == '' then
+    return
+  end
+  dir = vim.fn.expand(dir)
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.notify('Not a directory: ' .. dir, vim.log.levels.ERROR)
+    return
+  end
+  builtin.live_grep({ search_dirs = { dir } })
+end, {})
 vim.keymap.set('n', '<Space>fh', builtin.help_tags, {})
 
 
