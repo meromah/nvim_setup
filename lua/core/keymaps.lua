@@ -63,6 +63,9 @@ vim.keymap.set('t', 'JK', [[<C-\><C-n>]], { noremap = true, silent = true })
 -- toggle zoom on the current window (vim-maximizer)
 vim.keymap.set('n', '<leader>z', ':MaximizerToggle<CR>', { noremap = true, silent = true })
 
+-- toggle undo history tree (undotree)
+vim.keymap.set('n', '<leader>u', ':UndotreeToggle<CR>', { noremap = true, silent = true })
+
 
 -- Resize splits with arrow keys
 vim.keymap.set('n', '<C-Right>', ':vertical resize +5<CR>', { noremap = true, silent = true })

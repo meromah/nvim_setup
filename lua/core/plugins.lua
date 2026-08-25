@@ -202,6 +202,10 @@ require("lazy").setup({
   {
     -- toggle current window to fullscreen and back
     "szw/vim-maximizer",
+  },
+  {
+    -- undo history browser (sidebar tree, richer than plain ctrl-z/ctrl-r)
+    "mbbill/undotree",
   }
 })
 
