@@ -19,6 +19,22 @@ vim.keymap.set('n', '<Space>fG', function()
   end
   builtin.live_grep({ search_dirs = { dir } })
 end, {})
+vim.keymap.set('n', '<Space>fP', function()
+  local start_dir = vim.fn.expand('%:p:h')
+  if start_dir == '' or vim.fn.isdirectory(start_dir) == 0 then
+    start_dir = vim.fn.getcwd()
+  end
+  local dir = vim.fn.input('Find files in directory: ', start_dir .. '/', 'dir')
+  if dir == '' then
+    return
+  end
+  dir = vim.fn.expand(dir)
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.notify('Not a directory: ' .. dir, vim.log.levels.ERROR)
+    return
+  end
+  builtin.find_files({ cwd = dir })
+end, {})
 vim.keymap.set('n', '<Space>fh', builtin.help_tags, {})
 
 
