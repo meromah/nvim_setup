@@ -34,6 +34,10 @@ require("lazy").setup({
           },
         }
       })
+      -- telescope-fzf-native is built (make) as a dependency below but was
+      -- never loaded, so telescope was falling back to its default Lua
+      -- sorter instead of the compiled fzf matcher.
+      require('telescope').load_extension('fzf')
     end,
   },
 
