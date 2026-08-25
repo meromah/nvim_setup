@@ -4,7 +4,11 @@ vim.keymap.set('n', '<c-p>', builtin.find_files, {})
 vim.keymap.set('n', '<Space><Space>', builtin.oldfiles, {})
 vim.keymap.set('n', '<Space>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<Space>fG', function()
-  local dir = vim.fn.input('Grep in directory: ', vim.fn.getcwd() .. '/', 'dir')
+  local start_dir = vim.fn.expand('%:p:h')
+  if start_dir == '' or vim.fn.isdirectory(start_dir) == 0 then
+    start_dir = vim.fn.getcwd()
+  end
+  local dir = vim.fn.input('Grep in directory: ', start_dir .. '/', 'dir')
   if dir == '' then
     return
   end
