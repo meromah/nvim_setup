@@ -15,9 +15,13 @@ vim.opt.rtp:prepend(lazypath)
 vim.cmd [[filetype plugin indent on]]
 
 require("lazy").setup({
+  -- file explorer sidebar; toggle with <c-n> (keymap in plugin_config/nvim-tree.lua)
   { "nvim-tree/nvim-tree.lua" },
 
   -- 1. FUZZY FINDER (Telescope)
+  -- Keymaps live in plugin_config/telescope.lua: <c-p> find files, <Space>fP
+  -- find files scoped to a directory, <Space>fg live grep, <Space>fG live
+  -- grep scoped to a directory, <Space><Space> recent files, <Space>fh help tags.
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -42,14 +46,17 @@ require("lazy").setup({
   },
 
   -- 2. MODERN LSP ECOSYSTEM (Neovim 0.11+ Native Sync)
+  -- No keymap: open the installer UI with the :Mason command.
   {
     "williamboman/mason.nvim",
     config = true
   },
   {
+    -- No direct usage: just installs/registers the servers listed below so
+    -- nvim-lspconfig can hand them to the native LSP client.
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "intelephense", "vue_ls", "ts_ls" }, 
+      ensure_installed = { "intelephense", "vue_ls", "ts_ls" },
     }
   },
   {
@@ -120,12 +127,14 @@ require("lazy").setup({
     end
   },
   -- 3. UTILITIES & COMPLETION
+  -- No keymap: syncs the system clipboard automatically, nothing to trigger.
   {
     "swaits/universal-clipboard.nvim",
     opts = { verbose = false },
   },
   {
-    -- compeletion plugin
+    -- Completion popup; opens automatically while typing in insert mode.
+    -- <Tab> confirms the selected entry, <C-Space> forces it open on demand.
     "hrsh7th/nvim-cmp",
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
@@ -148,7 +157,8 @@ require("lazy").setup({
     end,
   },
   {
-    -- theme plugin
+    -- Colorscheme; applied automatically at startup below, no keymap needed.
+    -- Switch it manually any time with :colorscheme tokyonight.
     "folke/tokyonight.nvim",
     lazy = false,    -- Load immediately
     priority = 1000, -- Load before others
@@ -157,7 +167,11 @@ require("lazy").setup({
     end,
   },
   {
-    -- file fzf finder plugin
+    -- Second spec for the same plugin as above; lazy.nvim merges specs by
+    -- name, so this just adds telescope-fzf-native as a dependency. No
+    -- separate keymap: it's the sorter backend activated by the
+    -- load_extension('fzf') call in the first telescope spec's config(),
+    -- and then used automatically by every telescope picker.
     'nvim-telescope/telescope.nvim', version = '*',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -169,6 +183,7 @@ require("lazy").setup({
     -- Parser installer for the treesitter engine that ships inside Neovim.
     -- Nvim bundles only c/lua/markdown/query/vim/vimdoc parsers, so php has no
     -- syntax tree out of the box and treesitter-context has nothing to render.
+    -- No keymap or command of its own: it only feeds treesitter-context below.
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     -- The `main` rewrite explicitly does not support lazy-loading.
@@ -182,6 +197,8 @@ require("lazy").setup({
     end,
   },
   {
+    -- Sticky scroll: shows the enclosing function/class at the top of the
+    -- window automatically while scrolling. No keymap to toggle it.
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
@@ -193,18 +210,23 @@ require("lazy").setup({
     end
   },
   {
+    -- Git hunk signs/blame in the sign column. Keymaps (]c/[c navigate hunks,
+    -- <leader>hs/hr/hp stage/reset/preview, <leader>hb/tb blame) are set up
+    -- in plugin_config/gitsigns.lua's on_attach.
     "lewis6991/gitsigns.nvim"
   },
   {
+    -- Statusline; shown automatically, no keymap needed.
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
-    -- toggle current window to fullscreen and back
+    -- toggle current window to fullscreen and back, <leader>z (keymap in keymaps.lua)
     "szw/vim-maximizer",
   },
   {
     -- undo history browser (sidebar tree, richer than plain ctrl-z/ctrl-r)
+    -- toggle with <leader>u (keymap in keymaps.lua)
     "mbbill/undotree",
   }
 })
