@@ -13,8 +13,24 @@ require("lualine").setup({
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", "diff" },
-    lualine_c = { "filename" },
+    lualine_b = {
+      {
+        "branch",
+        -- Truncate long branch names so they can't crowd out the
+        -- filename path (lualine shrinks filename first otherwise).
+        fmt = function(str)
+          local max = 20
+          if #str > max then
+            return str:sub(1, max - 1) .. "…"
+          end
+          return str
+        end,
+      },
+      "diff",
+    },
+    lualine_c = {
+      { "filename", path = 3 },
+    },
     lualine_x = {
       {
         "diagnostics",
