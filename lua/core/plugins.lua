@@ -228,6 +228,77 @@ require("lazy").setup({
     -- undo history browser (sidebar tree, richer than plain ctrl-z/ctrl-r)
     -- toggle with <leader>u (keymap in keymaps.lua)
     "mbbill/undotree",
+  },
+  {
+    -- Translate a foreign-language selection to English. Select in visual mode
+    -- and hit <Space>t. Spelled as a literal <Space> rather than <leader> to
+    -- match keymaps.lua, and so the binding can't drift if mapleader changes.
+    -- Declared under `keys`, so lazy.nvim only loads the plugin on first use
+    -- (measured: 21.6ms, one time -- negligible next to the request itself).
+    --
+    -- WHY THE CUSTOM UI: the backend is slow and wildly variable -- measured
+    -- 6.7s to 33.3s per request, effectively all of it time-to-first-byte
+    -- inside the Google Apps Script proxy. With the stock `floating` output
+    -- nothing at all happens for that long, so the command looks broken, and
+    -- its unscoped CursorMoved autocmd meant an idle keypress during the wait
+    -- killed the result. So instead:
+    --   1. a spinner popup opens IMMEDIATELY, showing elapsed seconds,
+    --   2. focus stays in your buffer -- the popup never steals the cursor,
+    --   3. the same window is filled in place when the response arrives,
+    --   4. dismiss-on-CursorMoved is armed ONLY THEN, so a stray keypress during
+    --      the multi-second wait can't discard a pending result, while a
+    --      finished popup still clears itself on the next cursor move with no
+    --      explicit :q needed. Click into it and it stays, so you can yank.
+    -- A 120s watchdog replaces the spinner with an error rather than spinning
+    -- forever if curl dies without producing output.
+    --
+    -- Order matters in the mapping: <Esc> first so '< '> are set, then open the
+    -- popup with enter=false, then run :Translate while the SOURCE buffer is
+    -- still current -- the plugin reads the selection out of buffer 0.
+    --
+    -- READ-ONLY BY CONSTRUCTION: it renders into a throwaway scratch buffer
+    -- (nvim_create_buf(false, true), buftype=nofile, nomodifiable) with no file
+    -- backing, so nothing can be written to disk from it. The plugin's only
+    -- buffer-modifying outputs are `-output=insert` and `-output=replace`; the
+    -- mapping passes neither, and the default output is pinned to ours so an
+    -- upstream default change can't silently start editing files.
+    --
+    -- parse_after "window" is given an ABSOLUTE width (76) rather than the
+    -- default fraction-of-current-window: by the time the response is parsed
+    -- the cursor is inside the popup, so a relative width would measure the
+    -- popup and wrap the text to a sliver.
+    --
+    -- NOTE: the google backend POSTs the selected text to a Google Apps Script
+    -- endpoint hosted by the plugin author, not to Google directly. Fine for
+    -- OSS, think twice before pointing it at client source.
+    "uga-rosa/translate.nvim",
+    cmd = "Translate",
+    keys = {
+      {
+        "<Space>t",
+        function()
+          require("translate_ui").translate("EN")
+        end,
+        mode = "x",
+        silent = true,
+        desc = "Translate visual selection",
+      },
+    },
+    config = function()
+      require("translate").setup({
+        default = {
+          command = "google",
+          parse_after = "window",
+          output = "popup",
+        },
+        preset = {
+          parse_after = { window = { width = 76 } },
+        },
+        output = {
+          popup = { cmd = function(lines) require("translate_ui").fill(lines) end },
+        },
+      })
+    end,
   }
 })
 
